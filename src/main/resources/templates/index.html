@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TODO App</title>
+    <!--
+        Static assets are served from Azure Blob Storage when AZURE_STORAGE_CDN_BASE_URL is set,
+        otherwise they fall back to the local /static path.
+    -->
+    <link rel="stylesheet" th:href="${cdnBaseUrl != null && !cdnBaseUrl.isEmpty()} ? ${cdnBaseUrl + '/css/style.css'} : @{/css/style.css}"/>
+    <link rel="icon" type="image/png" th:href="${cdnBaseUrl != null && !cdnBaseUrl.isEmpty()} ? ${cdnBaseUrl + '/images/favicon.png'} : @{/images/favicon.png}"/>
+</head>
+<body>
+<div class="container">
+    <header>
+        <img th:src="${cdnBaseUrl != null && !cdnBaseUrl.isEmpty()} ? ${cdnBaseUrl + '/images/logo.png'} : @{/images/logo.png}" alt="TODO Logo" class="logo"/>
+        <h1>My TODO List</h1>
+    </header>
+
+    <!-- Add form -->
+    <section class="add-section">
+        <form action="/add" method="post">
+            <input type="text" name="title" placeholder="What needs to be done?" required maxlength="200"/>
+            <input type="text" name="description" placeholder="Details (optional)" maxlength="500"/>
+            <button type="submit" class="btn btn-add">Add</button>
+        </form>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+        <span th:text="${todos.size()} + ' item(s) total'"></span>
+        &nbsp;|&nbsp;
+        <span th:text="${pendingCount} + ' pending'"></span>
+    </div>
+
+    <!-- List -->
+    <ul class="todo-list" id="todo-list">
+        <li th:each="todo : ${todos}" th:classappend="${todo.completed} ? 'done'">
+            <span class="todo-title" th:text="${todo.title}"></span>
+            <span class="todo-desc" th:if="${todo.description != null and !todo.description.isBlank()}"
+                  th:text="${todo.description}"></span>
+            <div class="actions">
+                <form th:action="'/toggle/' + ${todo.id}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-toggle"
+                            th:text="${todo.completed} ? '↩ Undo' : '✔ Done'"></button>
+                </form>
+                <form th:action="'/delete/' + ${todo.id}" method="post" style="display:inline"
+                      onsubmit="return confirm('Delete this item?')">
+                    <button type="submit" class="btn btn-delete">✖ Delete</button>
+                </form>
+            </div>
+        </li>
+        <li th:if="${todos.isEmpty()}" class="empty">No todos yet. Add one above!</li>
+    </ul>
+</div>
+<script th:src="${cdnBaseUrl != null && !cdnBaseUrl.isEmpty()} ? ${cdnBaseUrl + '/js/app.js'} : @{/js/app.js}"></script>
+</body>
+</html>

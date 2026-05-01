@@ -1,0 +1,14 @@
+export SPRING_DATASOURCE_URL=jdbc:postgresql://ondra-postgres-hw2.postgres.database.azure.com:5432/todoapp?sslmode=require
+export SPRING_DATASOURCE_USERNAME=azureuser
+export SPRING_DATASOURCE_PASSWORD=YOUR_PASSWORD
+
+
+control + z for suspending claude
+take it back with fg
+
+
+pred az login musim udelat:
+unset REQUESTS_CA_BUNDLE
+
+Deployment (prvni zavolat mvn clean package):
+az webapp deploy --resource-group HW2-PA200 --name todoapp-ondra --src-path target/todoapp-1.0-SNAPSHOT.jar --type jar --timeout 0

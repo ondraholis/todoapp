@@ -1,0 +1,44 @@
+Deploying a Web Application to PaaS Cloud Services
+
+The objective of the second homework assignment is to practice deploying your own web application and its data storage layer to Platform‑as‑a‑Service (PaaS) cloud services.
+
+1. Deploying the Application Storage in a PaaS Model (5 points)
+Select a web application that stores data in either a relational database (Azure SQL Database, PostgreSQL, MySQL, MariaDB) or a NoSQL database (Cosmos DB, MongoDB, Azure Table Storage). Your first task is to deploy this storage layer to Microsoft Azure, ideally using a pricing model that minimizes cost or is fully serverless (billed per request rather than for reserved compute capacity).
+
+You must not create a virtual machine or install your own database engine. Instead, use one of the available PaaS database services, where the cloud provider handles provisioning, maintenance, and high availability. Your application will simply connect to the managed database instance you create.
+
+2. Deploying the Web Application to a PaaS Hosting Environment (7.5 points)
+Once your application’s storage layer is successfully deployed, proceed to deploy the web application itself using a PaaS web hosting service. You must not install your own web server on a virtual machine; instead, use a managed hosting platform such as Azure App Service or Azure Container Apps.
+
+Configure the hosting environment with minimal operational cost in mind (e.g., the Azure App Service Free tier should be sufficient—note that private networking is not available; for Azure Container Apps, choose a small CPU allocation and enable scale‑to‑zero).
+
+Choose any web application you wish to deploy—this may be a hobby project, coursework from another subject, or a simple sample application communicating with a database (legally obtained from the web or GitHub). Any technology stack supported by Azure is acceptable (and with containers, practically anything can be hosted).
+
+If you encounter an insurmountable limitation preventing your application from running on Azure App Service, your fallback option is to containerize the application, which broadens the range of supported languages and frameworks. For container hosting, choose an appropriate PaaS container service (Azure Kubernetes Service should be considered only as a last resort).
+
+Bring the application into a fully operational state so that it is publicly accessible on the DNS address assigned by the cloud provider.
+
+3. Efficient Hosting of Static Web Content (5 points)
+As demonstrated in the lecture, compute resources in PaaS web hosting are not cheap, and should not be wasted on serving static files. Configure your application so that all static content (images, CSS, JavaScript) is hosted in Azure Blob Storage (Azure CDN or Azure Front Door is not enabled for student subscriptions).
+
+If your application supports user‑uploaded files, store and distribute them via Azure Blob Storage as well. If access to these files must be restricted to authenticated users, implement the valet key tactic (as covered in the lecture):
+
+store files in a private Blob Storage container
+
+after user authentication, generate time‑limited SAS tokens granting access to individual files
+
+Include implementation details of this mechanism in your documentation.
+
+4. Automating Web Application Deployment (5 points)
+Implement a CI/CD pipeline (Azure DevOps or GitHub Actions) that automatically deploys your application to the hosting environment whenever changes are committed.  Remember that if you host the static assets of your application (images, CSS, JavaScript) separately in Azure Blob Storage, these assets must also be updated as part of your automated deployment process.
+
+Submit either:
+
+a short narrated screen‑capture video demonstrating the pipeline definition and its execution after committing an updated version of the application, or
+
+a PDF document describing the pipeline, including screenshots demonstrating its functionality.
+
+Bonus + Challenge: Secretless Configuration (5 points)
+Security is an essential aspect of cloud applications, and the best way to protect secrets is not to have any. As an optional bonus task, configure your application so that connection strings contain no secrets, and authentication to both the database and storage is performed using the application’s managed identity in Entra ID.
+
+Verify that your chosen technology stack fully supports this approach to avoid unnecessary troubleshooting.
