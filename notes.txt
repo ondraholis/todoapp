@@ -12,3 +12,6 @@ unset REQUESTS_CA_BUNDLE
 
 Deployment (prvni zavolat mvn clean package):
 az webapp deploy --resource-group HW2-PA200 --name todoapp-ondra --src-path target/todoapp-1.0-SNAPSHOT.jar --type jar --timeout 0
+
+Object (principal) ID
+3c495180-8792-4b3f-b371-0e49a82e391d
