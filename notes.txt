@@ -1,6 +1,7 @@
 export SPRING_DATASOURCE_URL=jdbc:postgresql://ondra-postgres-hw2.postgres.database.azure.com:5432/todoapp?sslmode=require
 jdbc:postgresql://ondra-postgres-hw2.postgres.database.azure.com:5432/todoapp?sslmode=require
 jdbc:postgresql://ondra-postgres-hw2.postgres.database.azure.com:5432/postgres?sslmode=require
+jdbc:postgresql://ondra-postgres-hw2.postgres.database.azure.com:5432/postgres?sslmode=require&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin
 export SPRING_DATASOURCE_USERNAME=azureuser
 export SPRING_DATASOURCE_PASSWORD=YOUR_PASSWORD
 
