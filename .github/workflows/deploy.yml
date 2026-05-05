@@ -7,6 +7,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: todoapp-ondra-hw3
+  AZURE_FUNCTION_APP_NAME: todo-function-ondra
   JAVA_VERSION: '17'
 
 jobs:
@@ -26,11 +27,16 @@ jobs:
           distribution: temurin
           cache: maven
 
-      # 3. Build fat JAR
-      - name: Build with Maven
+      # 3. Build web app fat JAR
+      - name: Build web app with Maven
         run: mvn -B package -DskipTests
 
-      # 4. Upload static assets to Azure Blob Storage
+      # 4. Build Azure Function package
+      - name: Build Azure Function with Maven
+        run: mvn -B package azure-functions:package -DskipTests
+        working-directory: todo-function
+
+      # 5. Upload static assets to Azure Blob Storage
       - name: Upload static assets to Blob Storage
         uses: azure/CLI@v2
         with:
@@ -42,7 +48,7 @@ jobs:
               --source        src/main/resources/static \
               --overwrite     true
 
-      # 5. Deploy JAR to Azure App Service
+      # 6. Deploy JAR to Azure App Service
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
@@ -50,3 +56,10 @@ jobs:
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: target/*.jar
 
+      # 7. Deploy Azure Function
+      - name: Deploy Azure Function
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTION_APP_NAME }}
+          package: todo-function/target/azure-functions/${{ env.AZURE_FUNCTION_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }}

@@ -64,6 +64,13 @@
             <version>5.19.0</version>
         </dependency>
 
+        <!-- Azure Service Bus -->
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-messaging-servicebus</artifactId>
+            <version>7.15.4</version>
+        </dependency>
+
         <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

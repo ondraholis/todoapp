@@ -1,0 +1,13 @@
+The objective of the third homework assignment is to practice implementing asynchronous operation processing using a message queue and a function‑as‑a‑service (FaaS) platform.
+
+Select a web application of your choice and implement—within an existing or newly created sample application—the Asynchronous Messaging design pattern. Your solution must include both implementation and a practical demonstration.
+
+Examples of scenarios suitable for asynchronous processing include:
+- Periodic extraction of source data from external systems
+- Computationally expensive tasks, such as image resampling for files uploaded to Azure Blob Storage
+- High‑volume operations, such as sending a newsletter to a large number of recipients
+- Fast ingestion of new measurements into a queue, followed by asynchronous persistence and alert triggering
+
+Use PaaS cloud services with minimal operational cost for deploying and running both the application and its storage layer.
+
+Bring the sample application into a fully operational state so that it is publicly accessible on the DNS address assigned by the cloud provider.
