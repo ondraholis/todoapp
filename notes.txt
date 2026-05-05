@@ -23,3 +23,5 @@ Object (principal) ID
 
 HW3
 
+run the maven command like:
+ mvn clean package -s /dev/null

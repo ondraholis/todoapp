@@ -40,3 +40,6 @@ build/
 
 ### Azure Functions ###
 todo-function/local.settings.json
+todo-function/target/
+
+.claude
