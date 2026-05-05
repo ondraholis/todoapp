@@ -2,11 +2,11 @@ name: Build & Deploy to Azure App Service
 
 on:
   push:
-    branches: [ "master", "main" ]
+    branches: [ "master", "main", "hw3-main-branch" ]
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: todoapp-ondra
+  AZURE_WEBAPP_NAME: todoapp-ondra-hw3
   JAVA_VERSION: '17'
 
 jobs:

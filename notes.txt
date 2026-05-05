@@ -18,3 +18,8 @@ az webapp deploy --resource-group HW2-PA200 --name todoapp-ondra --src-path targ
 
 Object (principal) ID
 3c495180-8792-4b3f-b371-0e49a82e391d
+
+
+
+HW3
+
