@@ -12,9 +12,11 @@ import java.util.List;
 public class TodoService {
 
     private final TodoRepository repo;
+    private final TodoNotificationService notificationService;
 
-    public TodoService(TodoRepository repo) {
+    public TodoService(TodoRepository repo, TodoNotificationService notificationService) {
         this.repo = repo;
+        this.notificationService = notificationService;
     }
 
     public List<Todo> findAll() {
@@ -30,6 +32,9 @@ public class TodoService {
                 .orElseThrow(() -> new IllegalArgumentException("Todo not found: " + id));
         todo.setCompleted(!todo.isCompleted());
         repo.save(todo);
+        if (todo.isCompleted()) {
+            notificationService.sendCompletionNotification(todo);
+        }
     }
 
     public void delete(Long id) {

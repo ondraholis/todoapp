@@ -1,52 +1,65 @@
-name: Build & Deploy to Azure App Service
-
-on:
-  push:
-    branches: [ "master", "main" ]
-  workflow_dispatch:
-
-env:
-  AZURE_WEBAPP_NAME: todoapp-ondra
-  JAVA_VERSION: '17'
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      # 1. Checkout source
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # 2. Set up Java 17
-      - name: Set up Java ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: temurin
-          cache: maven
-
-      # 3. Build fat JAR
-      - name: Build with Maven
-        run: mvn -B package -DskipTests
-
-      # 4. Upload static assets to Azure Blob Storage
-      - name: Upload static assets to Blob Storage
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            az storage blob upload-batch \
-              --account-name "${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" \
-              --account-key  "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
-              --destination   static \
-              --source        src/main/resources/static \
-              --overwrite     true
-
-      # 5. Deploy JAR to Azure App Service
-      - name: Deploy to Azure App Service
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: target/*.jar
-
+#name: Build & Deploy to Azure App Service
+#
+#on:
+#  push:
+#    branches: [ "master", "main" ]
+#  workflow_dispatch:
+#
+#env:
+#  AZURE_WEBAPP_NAME: todoapp-ondra
+#  AZURE_FUNCTION_APP_NAME: todo-function-ondra
+#  JAVA_VERSION: '17'
+#
+#jobs:
+#  build-and-deploy:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      # 1. Checkout source
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      # 2. Set up Java 17
+#      - name: Set up Java ${{ env.JAVA_VERSION }}
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: ${{ env.JAVA_VERSION }}
+#          distribution: temurin
+#          cache: maven
+#
+#      # 3. Build web app fat JAR
+#      - name: Build web app with Maven
+#        run: mvn -B package -DskipTests
+#
+#      # 4. Build Azure Function package
+#      - name: Build Azure Function with Maven
+#        run: mvn -B package azure-functions:package -DskipTests
+#        working-directory: todo-function
+#
+#      # 5. Upload static assets to Azure Blob Storage
+#      - name: Upload static assets to Blob Storage
+#        uses: azure/CLI@v2
+#        with:
+#          inlineScript: |
+#            az storage blob upload-batch \
+#              --account-name "${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" \
+#              --account-key  "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+#              --destination   static \
+#              --source        src/main/resources/static \
+#              --overwrite     true
+#
+#      # 6. Deploy JAR to Azure App Service
+#      - name: Deploy to Azure App Service
+#        uses: azure/webapps-deploy@v3
+#        with:
+#          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+#          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+#          package: target/*.jar
+#
+#      # 7. Deploy Azure Function
+#      - name: Deploy Azure Function
+#        uses: Azure/functions-action@v1
+#        with:
+#          app-name: ${{ env.AZURE_FUNCTION_APP_NAME }}
+#          package: todo-function/target/azure-functions/${{ env.AZURE_FUNCTION_APP_NAME }}
+#          publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }}

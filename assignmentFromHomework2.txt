@@ -37,8 +37,3 @@ Submit either:
 a short narrated screen‑capture video demonstrating the pipeline definition and its execution after committing an updated version of the application, or
 
 a PDF document describing the pipeline, including screenshots demonstrating its functionality.
-
-Bonus + Challenge: Secretless Configuration (5 points)
-Security is an essential aspect of cloud applications, and the best way to protect secrets is not to have any. As an optional bonus task, configure your application so that connection strings contain no secrets, and authentication to both the database and storage is performed using the application’s managed identity in Entra ID.
-
-Verify that your chosen technology stack fully supports this approach to avoid unnecessary troubleshooting.
