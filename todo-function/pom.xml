@@ -43,6 +43,7 @@
                 <artifactId>azure-functions-maven-plugin</artifactId>
                 <version>${azure.functions.maven.plugin.version}</version>
                 <configuration>
+                    <skipInstallExtensions>true</skipInstallExtensions>
                     <appName>${functionAppName}</appName>
                     <resourceGroup>${functionResourceGroup}</resourceGroup>
                     <region>${functionAppRegion}</region>
