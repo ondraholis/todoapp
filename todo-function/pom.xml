@@ -48,7 +48,7 @@
                     <resourceGroup>${functionResourceGroup}</resourceGroup>
                     <region>${functionAppRegion}</region>
                     <runtime>
-                        <os>linux</os>
+                        <os>windows</os>
                         <javaVersion>17</javaVersion>
                     </runtime>
                     <appSettings>

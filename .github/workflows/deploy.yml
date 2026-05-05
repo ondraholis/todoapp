@@ -57,10 +57,4 @@ jobs:
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: todoapp/target/*.jar
 
-      # 7. Deploy Azure Function
-      - name: Deploy Azure Function
-        uses: Azure/functions-action@v1
-        with:
-          app-name: ${{ env.AZURE_FUNCTION_APP_NAME }}
-          package: todo-function/target/azure-functions/${{ env.AZURE_FUNCTION_APP_NAME }}
-          publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }}
+      # 7. Deploy Azure Function (manual: cd todo-function && mvn azure-functions:deploy -DskipTests)
