@@ -16,7 +16,7 @@ public class TodoNotificationFunction {
 
         context.getLogger().info("TodoCompletionNotifier triggered. Message: " + messageBody);
 
-        // In a real scenario here would be sending an email
+        // In a real scenario here would be sending an email to people, who should be notified
         // For the demo we just log the received payload.
         context.getLogger().info("TODO completed notification processed successfully.");
     }
